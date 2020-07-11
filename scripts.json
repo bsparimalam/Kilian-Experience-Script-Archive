@@ -1,0 +1,58 @@
+[
+	{
+		"title": "Swedish Prehistory",
+		"date": 202001052359,
+		"duration": 1801,
+		"link": "https://en.wikipedia.org/wiki/Sweden",
+		"image":"",
+		"tags": ["Sweden", "prehistory"],
+		"script": [
+			{
+				"timestamp": 45,
+				"character": "Mr.Kilian",
+				"description": "Swedish Prehistory",
+				"line": "Sweden's prehistory begins in the Allerød oscillation,[according to whom?] a warm period around 12,000 BC, with Late Palaeolithic reindeer-hunting camps of the Bromme culture at the edge of the ice in what is now the country's southernmost province, Scania. This period was characterized by small bands of hunter-gatherer-fishers using flint technology."
+			},
+			{
+				"timestamp": 59,
+				"character": "Mr.Kilian",
+				"description": "",
+				"line": "Sweden is first described in a written source in Germania by Tacitus in 98 AD. In Germania 44 and 45 he mentions the Swedes (Suiones) as a powerful tribe (distinguished not merely for their arms and men, but for their powerful fleets) with ships that had a prow at each end (longships). Which kings (kuningaz) ruled these Suiones is unknown, but Norse mythology presents a long line of legendary and semi-legendary kings going back to the last centuries BC. As for literacy in Sweden itself, the runic script was in use among the south Scandinavian elite by at least the 2nd century AD, but all that has come down to the present from the Roman Period is curt inscriptions on artefacts, mainly of male names, demonstrating that the people of south Scandinavia spoke Proto-Norse at the time, a language ancestral to Swedish and other North Germanic languages."
+			},
+			{
+				"timestamp": 85,
+				"character": "Mr.Kilian",
+				"description": "",
+				"line": "In the 6th century, Jordanes names two tribes living in Scandza, both of which are now considered to be synonymous with the Swedes: the Suetidi and Suehans. Suetidi is considered to be the Latin form of Svíþjóð, the Old Norse name for the Swedes. Jordanes describes the Suetidi and Dani as being of the same stock and the tallest of people. He later mentions other Scandinavian tribes as being of a same stature.[non-primary source needed] The Suehans were known to the Roman world as suppliers of black fox skins and, according to Jordanes, had very fine horses, similar to those of the Thyringi of Germania (alia vero gens ibi moratur Suehans, quae velud Thyringi equis utuntur eximiis). The Icelandic historian Snorri Sturluson also wrote that the Swedish king Adils (Eadgils) had the finest horses of his day."
+			}
+		]
+	},
+	{
+		"title": "The Vikings",
+		"date": 2020021520523,
+		"duration": 600,
+		"link": "https://en.wikipedia.org/wiki/Vikings",
+		"image":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vikings-Voyages.png/220px-Vikings-Voyages.png", 
+		"tags": ["vikings", "horn"],
+		"script": [
+			{
+				"timestamp": 30,
+				"character": "",
+				"description": "Introduction",
+				"line": "The Swedish Viking Age lasted roughly from the 8th century to the 11th century. It is believed that Swedish Vikings and Gutar mainly travelled east and south, going to Finland, the Baltic countries, Russia, Belarus, Ukraine, the Black Sea and even as far as Baghdad. Their routes passed through the Dnieper south to Constantinople, on which they carried out numerous raids. The Byzantine Emperor Theophilos noticed their great skills in war, and invited them to serve as his personal bodyguard, known as the Varangian Guard. The Swedish Vikings, called Rus are believed to be the founding fathers of Kievan Rus'. The Arab traveller Ibn Fadlan described these Vikings as follows:"
+			},
+			{
+				"timestamp": 109,
+				"character": "",
+				"description": "",
+				"line": "The actions of these Swedish Vikings are commemorated on many runestones in Sweden, such as the Greece runestones and the Varangian runestones. There was also considerable participation in expeditions westwards, which are commemorated on stones such as the England runestones. The last major Swedish Viking expedition appears to have been the ill-fated expedition of Ingvar the Far-Travelled to Serkland, the region south-east of the Caspian Sea. Its members are commemorated on the Ingvar runestones, none of which mentions any survivor. What happened to the crew is unknown, but it is believed that they died of sickness."
+			},
+			{
+				"timestamp": 205,
+				"character": "",
+				"description": "The Kingdom of Sweden",
+				"line": "It is not known when and how the kingdom of Sweden was born, but the list of Swedish monarchs is drawn from the first kings known to have ruled both Svealand (Sweden) and Götaland (Gothia) as one province, beginning with Eric the Victorious. Sweden and Gothia were two separate nations long before that and since antiquity. It is not known how long they existed: the epic poem Beowulf describes semi-legendary Swedish-Geatish wars in the 6th century. Götaland in this sense mainly includes the provinces of Östergötland (East Gothia) and Västergötland (West Gothia). The island of Gotland was disputed by other than Swedes, at this time (Danish, Hanseatic, and Gotland-domestic). Småland was at that time of little interest to anyone due to the deep pine forests, and only the city of Kalmar with its castle was of importance. The south-west parts of the Scandinavian peninsula consisted of three Danish provinces (Scania, Blekinge and Halland). North of Halland, Denmark had a direct border to Norway and its province Bohuslän. But there were Swedish settlements along the southern coastline of Norrland."
+			}
+		]
+	}
+]

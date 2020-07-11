@@ -1,0 +1,73 @@
+:root {
+	--searchbar-default: 40vh;
+	--searchbar-input: 5vh;
+}
+html, body, div, input {
+	margin: 0;
+	padding: 0;
+	border-style: none;
+	font-family: system-ui;
+}
+html {
+	width: 100%;
+	height: auto;
+	background-color: #b0bec5;
+}
+@media (min-width: 15cm) {
+	:root {
+		--radius: 0.75cm;
+		--searchbutton: 2cm;
+		--font-size: 1cm;
+	}
+}
+@media (max-width: 15cm) {
+	:root {
+		--radius: 6vw;
+		--searchbutton: 16vw;
+		--font-size: 8vw;
+	}
+}
+body {
+	width: 95%;
+	max-width: 20cm;
+	margin: auto;
+	height: auto;
+}
+#searchbar {
+	height: calc(2 * var(--radius));
+	border-radius: var(--radius);
+	margin-top: var(--searchbar-default);
+	display: grid;
+	grid-template-columns: var(--radius) auto var(--radius);
+	grid-template-rows: 100%;
+	background-color: white;
+}
+input {
+	grid-row: span 1;
+	grid-column: span 1;
+	width: 100%;
+	height: 100%;
+	margin: auto;
+	text-align: center;
+	font-size: var(--font-size);
+	border-radius: 0;
+}
+span {
+	grid-row: span 1;
+	grid-column: span 1;
+	width: 100%;
+	height: 100%;	
+}
+#results {
+	width: 100%;
+	height: auto;
+}
+h1, h5 {
+	text-align: center;
+}
+p {
+	text-align: justify;
+}
+:focus {
+	outline: none!important; 
+}
