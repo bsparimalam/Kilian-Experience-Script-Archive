@@ -1,10 +1,10 @@
 {
   "name": "Kilian said what?!",
   "short_name": "Mr.Kilian",
-  "description": "A searcheable script archive for Kilian experience",
-  "version": "0.0.5",
+  "description": "A searchable script archive for Kilian experience",
+  "version": "0.0.6",
   "lang": "en-US",
-  "display": "fullscreen",
+  "display": "standalone",
   "orientation": "portrait",
   "background_color":  "#b0bec5",
   "theme_color": "#b0bec5", 
