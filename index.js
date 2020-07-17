@@ -125,6 +125,12 @@ function buildanepisode(jsobject, id, textindex) {
     }
     iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
     iframe.allowfullscreen = true;
+    // iframe.addEventListener('error', event => {
+    //     let image = document.createElement('img');
+    //     image.src = './images/episode-default.jpg';
+    //     episode.appendChild(image);
+    //     episode.removeChild(iframe);
+    // });
     episode.appendChild(iframe);
     return episode;
 }
