@@ -3,8 +3,8 @@ unimportantwords = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
 
 symbolcleanupregex = /[^a-zA-Z0-9\s]*/gi;
 globalscripts = undefined;
+storagename = 'kilianscripts.v1';
 fetch('./scripts.json').then(response => {
-    let storagename = 'kilianscripts.v1';
     if (response.status !== 200) {
         globalscripts = JSON.parse(window.localStorage.getItem(storagename));
     } else {
@@ -81,7 +81,7 @@ function list2regex(querylist) {
 
 function noresults(resultnode) {
     resultnode.innerHTML = '';
-    resultnode.innerHTML = "<br><h1>Kilian didn't say that, instead he said these... things...</h1><br><center><div id='twitter-timeline'><a class='twitter-timeline' data-dnt='true' href='https://twitter.com/KilExperience?ref_src=twsrc%5Etfw'>Tweets by KilExperience</a></div></center>";
+    resultnode.innerHTML = "<br><h1>Kilian didn't say that, instead he said these... things...</h1><br><center><div id='twitter-timeline'><a class='twitter-timeline' data-dnt='true' href='https://twitter.com/KilExperience?ref_src=twsrc%5Etfw'>Tweets by KilExperience</a></div></center><br>";
     let script = document.createElement('script');
     script.src = 'https://platform.twitter.com/widgets.js';
     script.charset = 'utf-8';
@@ -99,7 +99,7 @@ function buildanepisode(jsobject, id, textindex) {
     let link = document.createElement('a');
     link.id = 'episode-link-' + id;
     link.class = 'episode-link';
-    link.href = 'https://youtube.com/watch?v=' + jsobject.id;
+    link.href = `https://youtube.com/watch?v=${jsobject.id}&t=1s`;
     link.target = "_blank";
     let date = document.createElement('h4');
     date.innerText = beautifydate(jsobject.date);
@@ -108,11 +108,6 @@ function buildanepisode(jsobject, id, textindex) {
     link.appendChild(title);
     episode.appendChild(link);
     episode.appendChild(date);
-    let image = document.createElement('img');
-    image.id = 'episode-image-' + id;
-    image.class = 'episode-image';
-    image.src = './images/' + jsobject.image;
-    episode.appendChild(image);
     if (textindex > -1) {
     let text = document.createElement('p');
     text.id = 'episode-text-' + id + '-' + String(textindex);
@@ -120,6 +115,15 @@ function buildanepisode(jsobject, id, textindex) {
     text.innerHTML = `<a target = "_blank" href='https://youtube.com/watch?v=${jsobject.id}&t=${jsobject.script[textindex].timestamp}'>${beautifytime(jsobject.script[textindex].timestamp)}</a> ${jsobject.script[textindex].text}`;
     episode.appendChild(text);
     }
+    let image = document.createElement('img');
+    image.id = 'episode-image-' + id;
+    image.class = 'episode-image';
+    image.src =`./images/${jsobject.date}.png`;
+    image.addEventListener('error', event => {
+        event.target.src = './images/episode-default.jpg';
+        event.target.removeEventListener('error', event);
+    });
+    episode.appendChild(image);
     return episode;
 }
 
@@ -198,7 +202,7 @@ function search(queryregex, scriptsobject) {
 function printresults(resultlist, scriptsobject, resultnode) {
     resultnode.innerHTML = '';
     resultnode.appendChild(document.createElement('br'));
-    for (let i=0; ((i < resultlist.length) && (i < 10)); i++) {
+    for (let i=0; ((i < resultlist.length) && (i < 15)); i++) {
         let episodeindex = resultlist[i].episodeindex;
         let textindex = resultlist[i].texts[0].textindex;
         let episode = buildanepisode(scriptsobject[episodeindex], episodeindex, textindex);
@@ -219,7 +223,7 @@ globalsearchbox.addEventListener('keydown', event => {
                 noresults(globalresultnode);
             } else {
 console.log(globalsearchbox.value, querylist, list2regex(querylist), resultlist);
-                globalsearchbox.blur();
+globalsearchbox.blur();
                 printresults(resultlist, globalscripts, globalresultnode);
             }
         }

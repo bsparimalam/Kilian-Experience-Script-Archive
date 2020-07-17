@@ -1,4 +1,4 @@
-var cachename = "kilianscripts_0_0_7";
+var cachename = "kilianscripts_0_0_8";
 const expectedCaches = [cachename];
 const files2cache = [
     './',
@@ -6,7 +6,7 @@ const files2cache = [
     './icons/icon-152.png',
     './images/background.png',
     './images/banner.png',
-    './images/episode-default.png',
+    './images/episode-default.jpg',
     './favicon.ico',
     './index.css',
     './index.html',
