@@ -11,7 +11,8 @@
 # a = json.loads(response.text)
 # print(response)
 
-import os, glob, json
+import os, glob, json, re
+from difflib import SequenceMatcher
 
 def timerange2stamp(string):
 	rangelist = string.split(',')
@@ -30,6 +31,7 @@ class Files:
 
 fileobject = Files('F:/Downloads/kilian-experience/files/complete scripts/*.sbv')
 jsonobject = []
+wordcloud = ''
 files = fileobject.paths
 filenames = fileobject.filenames
 
@@ -38,6 +40,7 @@ for i, filename in enumerate(filenames):
 		parameters = filename.replace(fileobject.extension, "").replace("xcolonx", ":").replace("xquestionx", "?").replace("xfslashx", "/").split('xsplitx')
 		episode = {}
 		episode["date"] = parameters[0]
+		wordcloud += f'{parameters[1]} '
 		episode["title"] = parameters[1]
 		episode["id"] = parameters[2]
 		script = []
@@ -52,6 +55,7 @@ for i, filename in enumerate(filenames):
 			texts['text'] = ''
 			for j in range(1, len(classifiedlist)):
 				texts['text'] = texts['text'] + classifiedlist[j] + " "
+				wordcloud += f'{classifiedlist[j]} '
 				texts['text'] = texts['text'][:len(texts['text'])-1]
 				script.append(texts)
 		episode["script"] = script
@@ -69,6 +73,7 @@ for i, filename in enumerate(filenames):
 		parameters = filename.replace(fileobject.extension, "").replace("xcolonx", ":").replace("xquestionx", "?").replace("xfslashx", "/").split('xsplitx')
 		episode = {}
 		episode["date"] = parameters[0]
+		wordcloud += f'{parameters[1]} '
 		episode["title"] = parameters[1] + ' [transcription incomplete]'
 		episode["id"] = parameters[2]
 		script = []
@@ -83,6 +88,7 @@ for i, filename in enumerate(filenames):
 			texts['text'] = ''
 			for j in range(1, len(classifiedlist)):
 				texts['text'] = texts['text'] + classifiedlist[j] + " "
+				wordcloud += f'{classifiedlist[j]} '
 				texts['text'] = texts['text'][:len(texts['text'])-1]
 				script.append(texts)
 		episode["script"] = script
@@ -91,5 +97,53 @@ for i, filename in enumerate(filenames):
 		print(filename, rawtextitem)
 		break
 
-jsonobject = json.dumps(jsonobject)
-print(jsonobject)
+wordcloud = re.sub('[^A-Za-z0-9\s\']+', ' ', wordcloud).replace('  ', ' ').replace('  ', ' ')
+wordlist = wordcloud.split(' ')
+phrasefrequency = []
+shortphraselen = 3
+longphraselen = 8
+progress = 0
+for i in range(len(wordlist)-longphraselen):
+	currentprogress = int(i*100/len(wordlist))
+	if (currentprogress > progress):
+		print(f'phrase frequency calculation, {currentprogress}% complete')
+		progress = currentprogress
+	for j in range(shortphraselen, longphraselen):
+		phrase = ' '.join(wordlist[i:i+j])
+		count = wordcloud.count(phrase)
+		if (count > 4):
+			phrasefrequency.append({
+				'phrase': phrase, 
+				'count': count*(len(phrase)**3)
+			})
+i=0
+progress = 0
+while ( i < len(phrasefrequency)):
+	currentprogress = int(i*100/len(phrasefrequency))
+	if (currentprogress > progress):
+		print(f'duplication removal, {currentprogress}% complete')
+		progress = currentprogress
+	phrase = phrasefrequency[i]["phrase"]
+	j = 0
+	while ( j < len(phrasefrequency)):
+		if (phrasefrequency[j]["phrase"].count(phrase) > 0):
+			phrasefrequency.remove(phrasefrequency[i])
+			if (j < i): i -= 1 
+			break
+
+		if (SequenceMatcher(None, phrase, phrasefrequency[j]["phrase"]).ratio() > 0.6):
+			if (len(phrase) > len(phrasefrequency[j]["phrase"])):
+				phrasefrequency.remove(phrasefrequency[j])
+				if (j < 1): i -= 1
+			else:
+				phrasefrequency.remove(phrasefrequency[i])
+				if(j < i): i -= 1
+		j += 1
+	i += 1
+
+def getvalue(e): return e["count"]
+phrasefrequency.sort(reverse=True, key=getvalue)
+print(json.dumps(phrasefrequency))
+
+# jsonobject = json.dumps(jsonobject)
+# print(jsonobject)
