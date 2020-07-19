@@ -125,6 +125,9 @@ cleanup = [
 	"have something to do with the",
 	"Ryan 'No' says the man in",
 	"I don't care about",
+	"all over the place",
+"for the first time",
+"you know that the", 
 ]
 i=0
 progress = 0
