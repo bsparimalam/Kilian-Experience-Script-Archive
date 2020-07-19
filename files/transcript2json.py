@@ -96,54 +96,78 @@ for i, filename in enumerate(filenames):
 	except:
 		print(filename, rawtextitem)
 		break
-
-wordcloud = re.sub('[^A-Za-z0-9\s\']+', ' ', wordcloud).replace('  ', ' ').replace('  ', ' ')
+# frequency calculation
+wordcloud = re.sub('[^A-Za-z0-9s\']+', ' ', wordcloud).replace('  ', ' ').replace('  ', ' ')
 wordlist = wordcloud.split(' ')
 phrasefrequency = []
+phraselist = []
 shortphraselen = 3
-longphraselen = 8
+longphraselen = 9
 progress = 0
 for i in range(len(wordlist)-longphraselen):
 	currentprogress = int(i*100/len(wordlist))
-	if (currentprogress > progress):
+	if (currentprogress > progress + 5):
 		print(f'phrase frequency calculation, {currentprogress}% complete')
 		progress = currentprogress
 	for j in range(shortphraselen, longphraselen):
 		phrase = ' '.join(wordlist[i:i+j])
-		count = wordcloud.count(phrase)
-		if (count > 4):
-			phrasefrequency.append({
-				'phrase': phrase, 
-				'count': count*(len(phrase)**3)
-			})
+		try:
+			phraselist.index(phrase)
+		except:
+			phraselist.append(phrase)
+			count = wordcloud.count(phrase)
+			if (count > 5):
+				phrasefrequency.append({
+					'phrase': phrase, 
+					'count': count*(len(phrase)**3)
+				})
+
+# discard substrings
 i=0
 progress = 0
 while ( i < len(phrasefrequency)):
 	currentprogress = int(i*100/len(phrasefrequency))
-	if (currentprogress > progress):
-		print(f'duplication removal, {currentprogress}% complete')
+	if (currentprogress > progress + 5):
+		print(f'substrings removal, {currentprogress}% complete')
 		progress = currentprogress
 	phrase = phrasefrequency[i]["phrase"]
 	j = 0
 	while ( j < len(phrasefrequency)):
-		if (phrasefrequency[j]["phrase"].count(phrase) > 0):
+		if ((phrasefrequency[j]["phrase"].count(phrase) > 0) and (i != j)):
+			print(f'{i=} {j=} {phrasefrequency[j]["phrase"]=} {phrasefrequency[i]["phrase"]=} {len(phrasefrequency)=}')
 			phrasefrequency.remove(phrasefrequency[i])
-			if (j < i): i -= 1 
+			i = i - 2
 			break
-
-		if (SequenceMatcher(None, phrase, phrasefrequency[j]["phrase"]).ratio() > 0.6):
-			if (len(phrase) > len(phrasefrequency[j]["phrase"])):
-				phrasefrequency.remove(phrasefrequency[j])
-				if (j < 1): i -= 1
-			else:
-				phrasefrequency.remove(phrasefrequency[i])
-				if(j < i): i -= 1
 		j += 1
 	i += 1
 
-def getvalue(e): return e["count"]
-phrasefrequency.sort(reverse=True, key=getvalue)
+# discard close matches
+i=0
+progress = 0
+while ( i < len(phrasefrequency)):
+	currentprogress = int(i*100/len(phrasefrequency))
+	if (currentprogress > progress + 5):
+		print(f'close matches, {currentprogress}% discarded')
+		progress = currentprogress
+	phrase = phrasefrequency[i]["phrase"]
+	j = 0
+	while ( j < len(phrasefrequency)):
+		phrase2 = phrasefrequency[j]["phrase"]
+		if ((SequenceMatcher(None, phrase, phrase2).ratio() > 0.75) and (len(phrase) < len(phrase2))):
+			print(f'{i=} {j=} {phrase2=} {phrase=} {len(phrasefrequency)=}')
+			phrasefrequency.remove(phrasefrequency[i])
+			i = i - 2
+			break
+		j += 1
+	i += 1
+
+def getfrequency(e): return e["count"]
+def getlength(e): return len(e["phrase"])
+phrasefrequency.sort(reverse=True, key=getfrequency)
+phrasefrequency = phrasefrequency[0:100]
+phrasefrequency.sort(reverse=True, key=getlength)
 print(json.dumps(phrasefrequency))
+print(len(phrasefrequency))
 
 # jsonobject = json.dumps(jsonobject)
 # print(jsonobject)
