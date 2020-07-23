@@ -4,27 +4,22 @@ unimportantwords = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
 symbolcleanupregex = /[^a-zA-Z0-9\s]*/gi;
 storagename = 'kilianscripts.v2';
 globaldata = JSON.parse(window.localStorage.getItem(storagename));
-isonline = undefined;
-
 //search operation
 globalsearchbar = document.getElementById('searchbar');
 globalsearchbox = document.getElementById('searchbox');
 globalresultnode = document.getElementById('results');
-
+isonline = ((navigator.connection.rtt < 1000) && navigator.onLine);
 fetch('./source.json').then(response => {
     if (response.status !== 200) {
         globaldata = JSON.parse(window.localStorage.getItem(storagename));
-        isonline = false;
     } else {
         response.json().then( data => {
             globaldata = data;
             window.localStorage.setItem(storagename, JSON.stringify(globaldata));
-            isonline = true;
         });
     }
 }).catch(function(err) {
     globaldata = JSON.parse(window.localStorage.getItem(storagename));
-    isonline = false;
 });
 //
 function beautifydate(date) {
@@ -273,17 +268,3 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'UA-166908735-1');
-
-// // tests
-// if(beautifydate(20200128) === 'January 28, 2020') {
-//     console.log('beautifydate passed');
-// } else { console.log('beautifydate failed'); }
-// if (beautifytime(1801) === "00:30:01") {
-//     console.log('beautifytime passed');
-// } else {console.log('beautifytime failed');}
-// console.log(query2list('is it a bird?'));
-// if (query2list('is it a bird?').length === ['is it', 'is it a', 'is it a bird','it a', 'it a bird', 'a bird', 'bird'].length) {
-//     console.log('query2list passed');
-// } else {
-//     console.log('query2list failed');
-// }
